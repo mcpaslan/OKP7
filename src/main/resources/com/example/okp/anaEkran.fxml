@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.okp.anaEkran">
+   <children>
+      <AnchorPane layoutX="8.0" prefHeight="300.0" prefWidth="240.0" style="-fx-background-color: #CF9FFF;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="240.0">
+         <children>
+            <ImageView fitHeight="152.0" fitWidth="161.0" layoutX="44.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resimler/aOgrenci.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="ogrenciButton" layoutX="63.0" layoutY="234.0" mnemonicParsing="false" onAction="#onOgrenciGirisButton" prefHeight="42.0" prefWidth="114.0" text="Öğrenci" textFill="#8c00ff">
+               <font>
+                  <Font name="Arial Black" size="13.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="240.0" prefHeight="300.0" prefWidth="240.0" style="-fx-background-color: #D8BFD8;">
+         <children>
+            <ImageView fitHeight="152.0" fitWidth="159.0" layoutX="55.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resimler/aOgretmen.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="-99.0" layoutY="47.0" text="Kullanıcı Seçin" textFill="#890ae4">
+               <font>
+                  <Font name="Arial Black" size="28.0" />
+               </font>
+            </Label>
+            <Button fx:id="ogretmenButton" layoutX="63.0" layoutY="233.0" mnemonicParsing="false" onAction="#onOgretmenGirisButton" prefHeight="42.0" prefWidth="114.0" text="Öğretmen" textFill="#8c00ff">
+               <font>
+                  <Font name="Arial Black" size="13.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
