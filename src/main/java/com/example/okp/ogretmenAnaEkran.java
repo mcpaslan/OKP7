@@ -18,9 +18,6 @@ public class ogretmenAnaEkran {
     @FXML
     private Button OgretmenDersEkleButton;
 
-    @FXML
-    private Button ogrenciEkleButton;
-
 
     @FXML
     private Button ogretmenCikisYapButton;
@@ -63,18 +60,7 @@ public class ogretmenAnaEkran {
     @FXML
     private ListView<String> ogrenciListView;
 
-    @FXML
-    void ogrenciEkleButton(ActionEvent event) {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Yeni Öğrenci Ekle");
-        dialog.setHeaderText("Lütfen yeni öğrencinin adını girin:");
-        dialog.setContentText("Ad:");
 
-        // Kullanıcıdan alınan ismi listeye ekle
-        dialog.showAndWait().ifPresent(yeniOgrenci -> {
-            ogrenciListView.getItems().add(yeniOgrenci); // Öğrenci ismini ListView'e ekler
-        });
-    }
 
     @FXML
     void ogretmenYeniKursEkle(ActionEvent event) {
