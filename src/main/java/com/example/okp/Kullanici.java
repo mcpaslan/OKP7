@@ -1,6 +1,6 @@
 package com.example.okp;
 
-public class Kullanici {
+public class Kullanici implements Ikullanici {
     private String kullaniciAd;
     private String sifre;
 
@@ -9,11 +9,13 @@ public class Kullanici {
         this.sifre = sifre;
     }
 
-    public String getKullaniciAd() {
-        return kullaniciAd;
-    }
-
+    @Override
     public String getSifre() {
         return sifre;
+    }
+
+    @Override
+    public String getKullaniciAd() {
+        return kullaniciAd;
     }
 }

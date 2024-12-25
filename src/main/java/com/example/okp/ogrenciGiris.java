@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -22,20 +23,14 @@ public class ogrenciGiris {
     @FXML
     private Button ogrenciGirisYapButton;
 
+
     @FXML
     private TextField kullaniciAdTF;
 
     @FXML
     private PasswordField sifrePF;
-
-    private ArrayList<Ogrenci> ogrenciler = new ArrayList<>();
-
-    public ogrenciGiris(){
-        ogrenciler.add(new Ogrenci("mucip","123"));
-        ogrenciler.add(new Ogrenci("mert","456"));
-        ogrenciler.add(new Ogrenci("muhammed","789"));
-
-    }
+    @FXML
+    private Button ogrenciKayitOlButton;
 
     @FXML
     private ImageView exit;
@@ -50,6 +45,21 @@ public class ogrenciGiris {
             Platform.exit();
         }
     }
+    @FXML
+    void ogrenciKayitOlButton(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ogrenciKayitOl.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @FXML
     void ogrenciGirisYapButton(ActionEvent event) {
@@ -57,10 +67,11 @@ public class ogrenciGiris {
         String ogrenciSifre = sifrePF.getText();
         boolean giris = false;
 
-        for (Ogrenci ogrenci : ogrenciler){
+        for (Ogrenci ogrenci : ogrenciData.getInstance().getOgrenciler()){
 
             if (ogrenci.getKullaniciAd().equals(ogrenciKullaniciAdi) && ogrenci.getSifre().equals(ogrenciSifre)){
                 giris = true;
+                ogrenciData.getInstance().setOgrenciKullaniciAdi(ogrenci);
                 break;
             }
         }
@@ -91,6 +102,7 @@ public class ogrenciGiris {
             alert.showAndWait();
         }
     }
+
 
     @FXML
     void oncekineGeriDon(MouseEvent event) {

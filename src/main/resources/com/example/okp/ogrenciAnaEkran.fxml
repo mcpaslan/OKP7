@@ -28,12 +28,7 @@
                   <Image url="@butonlar/arrow.png" />
                </image>
             </ImageView>
-            <Button fx:id="ogretmenEkleButon" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="252.0" mnemonicParsing="false" onAction="#ogretmenEkleButton" prefHeight="25.0" prefWidth="115.0" style="-fx-background-color: #9e17bc;" text="Öğretmen Ekle" textFill="WHITE">
-               <font>
-                  <Font name="Arial Black" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="ogrenciDersEkle" layoutX="34.0" layoutY="300.0" mnemonicParsing="false" onAction="#ogrenciYeniKursEkle" prefHeight="25.0" prefWidth="115.0" style="-fx-background-color: #9e17bc;" text="Yeni Kurs Ekle" textFill="WHITE">
+            <Button fx:id="ogretmenEkleButon" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="252.0" mnemonicParsing="false" onAction="#ogretmenYeniKursEkle" prefHeight="25.0" prefWidth="115.0" style="-fx-background-color: #9e17bc;" text="Öğretmen Ekle" textFill="WHITE">
                <font>
                   <Font name="Arial Black" size="12.0" />
                </font>
@@ -43,14 +38,9 @@
                   <Image url="@butonlar/add-user.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="32.0" fitWidth="29.0" layoutX="3.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@butonlar/library.png" />
-               </image>
-            </ImageView>
          </children>
       </AnchorPane>
-      <Label fx:id="ogrenciHosgeldinLabel" layoutX="307.0" layoutY="62.0" text="HOŞGELDİNİZ" textFill="#9e17bc">
+      <Label fx:id="ogrenciHosgeldinLabel" layoutX="249.0" layoutY="58.0" onDragDetected="#initialize" text="HOŞGELDİNİZ" textFill="#9e17bc">
          <font>
             <Font name="Arial Black" size="30.0" />
          </font>

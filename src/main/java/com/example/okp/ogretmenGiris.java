@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -12,15 +13,19 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
+
 
 public class ogretmenGiris {
 
     @FXML
-    private ImageView geriGel;
+    private ImageView gerigel5;
+
 
     @FXML
     private ImageView exit;
+    @FXML
+    private Button ogretmenKayitOlButton1;
+
 
     @FXML
     void exitButton(MouseEvent event) {
@@ -43,13 +48,24 @@ public class ogretmenGiris {
     @FXML
     private PasswordField sifrePF;
 
-    private ArrayList<Ogretmen> ogretmenler = new ArrayList<>();
 
-    public ogretmenGiris(){
-        ogretmenler.add(new Ogretmen("damla","123"));
-        ogretmenler.add(new Ogretmen("seyda","456"));
-        ogretmenler.add(new Ogretmen("merve","789"));
+    @FXML
+    void ogretmenKayitOlButton1(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ogretmenKayitOl.fxml"));
+            Parent root = loader.load();
 
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    void initialize(){
+        gerigel5.setOnMouseClicked(event -> ongerigel5(event));
     }
 
     @FXML
@@ -58,10 +74,11 @@ public class ogretmenGiris {
         String ogretmenSifre = sifrePF.getText();
         boolean giris = false;
 
-        for (Ogretmen ogretmen : ogretmenler){
+        for (Ogretmen ogretmen : ogretmenData.getInstance().getOgretmenler()){
 
             if (ogretmen.getKullaniciAd().equals(ogretmenKullaniciAdi) && ogretmen.getSifre().equals(ogretmenSifre)){
                 giris = true;
+                ogretmenData.getInstance().setOgretmenKullaniciAdi(ogretmen);
                 break;
             }
         }
@@ -93,19 +110,25 @@ public class ogretmenGiris {
         }
     }
     @FXML
-    void oncekineGeriDon(MouseEvent event) {
+    void ongerigel5(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("anaEkran.fxml"));
             Parent root = loader.load();
 
-            Stage stage = (Stage) geriGel.getScene().getWindow();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle("Online Kurs Platformu");
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
+
 }
+
+
+
+

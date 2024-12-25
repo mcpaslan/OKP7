@@ -47,7 +47,12 @@
       </Label>
       <TextField fx:id="kullaniciAdTF" layoutX="180.0" layoutY="126.0" prefHeight="25.0" prefWidth="178.0" promptText="Kullanıcı Adını Gir" style="-fx-background-color: #9e17bc;" />
       <PasswordField fx:id="sifrePF" layoutX="180.0" layoutY="161.0" prefHeight="25.0" prefWidth="178.0" promptText="Şifreni Gir" style="-fx-background-color: #9e17bc;" />
-      <Button fx:id="ogrenciGirisYapButton" layoutX="278.0" layoutY="195.0" mnemonicParsing="false" onAction="#ogrenciGirisYapButton" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #9e17bc;" text="Giriş Yap" textFill="WHITE">
+      <Button fx:id="ogrenciGirisYapButton" layoutX="180.0" layoutY="199.0" mnemonicParsing="false" onAction="#ogrenciGirisYapButton" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #9e17bc;" text="Giriş Yap" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="ogrenciKayitOlButton" layoutX="269.0" layoutY="199.0" mnemonicParsing="false" onAction="#ogrenciKayitOlButton" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #9e17bc;" text="Kayıt Ol" textFill="WHITE">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>

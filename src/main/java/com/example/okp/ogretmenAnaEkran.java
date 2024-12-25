@@ -10,14 +10,19 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 import java.io.IOException;
 
+
 public class ogretmenAnaEkran {
+    Ogretmen ogretmen_kullanici_adi = ogretmenData.getInstance().getOgretmenKullaniciAdi();
+    String metin = "Hoşgeldiniz " + ogretmen_kullanici_adi.getKullaniciAd();
+
 
     @FXML
     private Button OgretmenDersEkleButton;
-
 
     @FXML
     private Button ogretmenCikisYapButton;
@@ -25,6 +30,29 @@ public class ogretmenAnaEkran {
     @FXML
     private ImageView exit;
 
+
+    @FXML
+    private Label ogretmenHosgeldinLabel;
+
+    @FXML
+    private TreeView<String> ogretmenDersTreeView;
+
+
+    @FXML
+    private ListView<String> ogrenciListView;
+
+    private TreeItem<String> rootCategory;
+
+    @FXML
+    void initialize() {
+        // Root kategori oluşturuluyor
+        rootCategory = new TreeItem<>("Dersler");
+        rootCategory.setExpanded(true); // Başlangıçta genişlemiş olsun
+        ogretmenDersTreeView.setRoot(rootCategory); // TreeView'e root ekleniyor
+        ogretmenHosgeldinLabel.setText(metin);
+        for(Ogrenci ogrenci:ogretmen_kullanici_adi.ogrenciler){
+        ogrenciListView.getItems().add(ogrenci.getKullaniciAd());}
+    }
 
     @FXML
     void exitButton(MouseEvent event) {
@@ -35,69 +63,44 @@ public class ogretmenAnaEkran {
         if (alert.showAndWait().get() == ButtonType.OK) {
             Platform.exit();
         }
-
     }
-
-    @FXML
-    private Label ogretmenHosgeldinLabel;
-
-    private TreeItem<String> rootCategory;
-
-    @FXML
-    void initialize() {
-        // Root kategori oluşturuluyor
-        rootCategory = new TreeItem<>("Dersler");
-        rootCategory.setExpanded(true); // Başlangıçta genişlemiş olsun
-        ogretmenDersTreeView.setRoot(rootCategory); // TreeView'e root ekleniyor
+    // Hata mesajı veya bilgi mesajı göstermek için showAlert metodunu tanımlama
+    public void showAlert(String title, String message) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
-
-
-    @FXML
-    private TreeView<String> ogretmenDersTreeView;
-
-
-
-    @FXML
-    private ListView<String> ogrenciListView;
-
 
 
     @FXML
     void ogretmenYeniKursEkle(ActionEvent event) {
-        // Kategori, alt kategori ve ders adı alacak diyaloglar
-        TextInputDialog kategoriDialog = new TextInputDialog();
-        kategoriDialog.setTitle("Yeni Kategori Ekle");
-        kategoriDialog.setHeaderText("Yeni kategori adını girin:");
-        kategoriDialog.setContentText("Kategori:");
+        // Ders adı alacak diyalog
+        TextInputDialog dersDialog = new TextInputDialog();
+        dersDialog.setTitle("Yeni Ders Ekle");
+        dersDialog.setHeaderText("Yeni ders adını girin:");
+        dersDialog.setContentText("Ders:");
 
-        kategoriDialog.showAndWait().ifPresent(kategori -> {
-            TextInputDialog altKategoriDialog = new TextInputDialog();
-            altKategoriDialog.setTitle("Yeni Alt Kategori Ekle");
-            altKategoriDialog.setHeaderText("Yeni alt kategori adını girin:");
-            altKategoriDialog.setContentText("Alt Kategori:");
+        dersDialog.showAndWait().ifPresent(ders -> {
+            if (ders.isEmpty()) {
+                // Ders adı boşsa hata mesajı göster
+                showAlert("Hata", "Ders adı boş olamaz.");
+                return;
+            }
 
-            altKategoriDialog.showAndWait().ifPresent(altKategori -> {
-                TextInputDialog dersDialog = new TextInputDialog();
-                dersDialog.setTitle("Yeni Ders Ekle");
-                dersDialog.setHeaderText("Yeni ders adını girin:");
-                dersDialog.setContentText("Ders:");
+            ogretmenData.getInstance().addDersler(ders,ogretmen_kullanici_adi);
+            // Yeni ders TreeItem olarak oluşturuluyor
+            TreeItem<String> dersItem = new TreeItem<>(ders);
 
-                dersDialog.showAndWait().ifPresent(ders -> {
-                    // Yeni kategori, alt kategori ve ders adı ekleniyor
-                    TreeItem<String> kategoriItem = new TreeItem<>(kategori);
-                    TreeItem<String> altKategoriItem = new TreeItem<>(altKategori);
-                    TreeItem<String> dersItem = new TreeItem<>(ders);
+            // TreeView'e ekliyoruz (rootCategory ana kategori olarak tanımlanmış olmalı)
+            rootCategory.getChildren().add(dersItem);
 
-                    // Alt kategori ve ders kategorisi altında sırasıyla hiyerarşi oluşturuluyor
-                    kategoriItem.getChildren().add(altKategoriItem);
-                    altKategoriItem.getChildren().add(dersItem);
 
-                    // TreeView'e ekleniyor
-                    rootCategory.getChildren().add(kategoriItem);
-                });
-            });
         });
     }
+
+
 
     @FXML
     void ogretmenCikisYapButton(ActionEvent event) {
@@ -117,6 +120,5 @@ public class ogretmenAnaEkran {
                 e.printStackTrace();
             }
         }
-
     }
 }

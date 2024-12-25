@@ -1,6 +1,8 @@
 package com.example.okp;
 
 import javafx.application.Platform;
+
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,8 +14,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class ogrenciAnaEkran {
+    Ogrenci ogrenci_kullanici_adi = ogrenciData.getInstance().getOgrenciKullaniciAdi();
+    String metin = "Hoşgeldiniz " + ogrenci_kullanici_adi.getKullaniciAd();
+
+
 
     @FXML
     private ImageView exit;
@@ -45,73 +54,62 @@ public class ogrenciAnaEkran {
         rootCategory = new TreeItem<>("Dersler");
         rootCategory.setExpanded(true); // Başlangıçta genişlemiş olsun
         ogrenciDersTreeView.setRoot(rootCategory); // TreeView'e root ekleniyor
+        ogrenciHosgeldinLabel.setText(metin);
     }
 
+
+
     @FXML
-    void ogrenciYeniKursEkle(ActionEvent event) {
-        // Kategori al
-        TextInputDialog kategoriDialog = new TextInputDialog();
-        kategoriDialog.setTitle("Yeni Kategori Ekle");
-        kategoriDialog.setHeaderText("Yeni kategori adını girin:");
-        kategoriDialog.setContentText("Kategori:");
+    void ogretmenYeniKursEkle(ActionEvent event) {
+        // Öğretmen seçim diyalogu
+        ChoiceDialog<String> ogretmenSecDialog = new ChoiceDialog<>();
 
-        kategoriDialog.showAndWait().ifPresent(kategori -> {
-            if (kategori.isEmpty()) {
-                showAlert("Hata", "Kategori adı boş olamaz.");
-                return;
-            }
+        // Öğretmenlerin listesi ogretmenData'dan alınacak
+        ArrayList<Ogretmen> ogretmenler = ogretmenData.getInstance().getOgretmenler();
+        ArrayList<String> ogretmenIsimleri = new ArrayList<>();
+        // Öğretmenlerin isimlerini listeye ekliyoruz
+        for (Ogretmen ogretmen : ogretmenler) {
+            ogretmenIsimleri.add(ogretmen.getKullaniciAd());
+        }
 
-            // Alt kategori al
-            TextInputDialog altKategoriDialog = new TextInputDialog();
-            altKategoriDialog.setTitle("Yeni Alt Kategori Ekle");
-            altKategoriDialog.setHeaderText("Yeni alt kategori adını girin:");
-            altKategoriDialog.setContentText("Alt Kategori:");
+        ogretmenSecDialog.getItems().addAll(ogretmenIsimleri);
+        ogretmenSecDialog.setTitle("Öğretmen Seç");
+        ogretmenSecDialog.setHeaderText("Bir öğretmen seçin:");
+        ogretmenSecDialog.setContentText("Öğretmen:");
 
-            altKategoriDialog.showAndWait().ifPresent(altKategori -> {
-                if (altKategori.isEmpty()) {
-                    showAlert("Hata", "Alt kategori adı boş olamaz.");
-                    return;
-                }
+        // Öğretmen seçildikten sonra
+        ogretmenSecDialog.showAndWait().ifPresent(selectedOgretmen -> {
+            // Seçilen öğretmeni buluyoruz
+            Ogretmen ogretmen = findOgretmenByAdi(selectedOgretmen);
 
-                // Ders adı al
-                TextInputDialog dersDialog = new TextInputDialog();
-                dersDialog.setTitle("Yeni Ders Ekle");
-                dersDialog.setHeaderText("Yeni ders adını girin:");
-                dersDialog.setContentText("Ders:");
+            if (ogretmen != null) {
+                // Ders seçimi diyalogu
+                ChoiceDialog<String> dersSecDialog = new ChoiceDialog<>(null, ogretmen.getDersler());
+                dersSecDialog.setTitle("Ders Seç");
+                dersSecDialog.setHeaderText(selectedOgretmen + " öğretmeninin derslerini seçin:");
+                dersSecDialog.setContentText("Ders:");
 
-                dersDialog.showAndWait().ifPresent(ders -> {
-                    if (ders.isEmpty()) {
-                        showAlert("Hata", "Ders adı boş olamaz.");
-                        return;
-                    }
-
-                    // Yeni kategori, alt kategori ve ders adı ekleniyor
-                    TreeItem<String> kategoriItem = findOrCreateTreeItem(rootCategory, kategori);
-                    TreeItem<String> altKategoriItem = findOrCreateTreeItem(kategoriItem, altKategori);
-                    TreeItem<String> dersItem = new TreeItem<>(ders);
-
-                    // Alt kategoriye ders ekleniyor
-                    altKategoriItem.getChildren().add(dersItem);
+                dersSecDialog.showAndWait().ifPresent(selectedDers -> {
+                    ogrenciDersTreeView.getRoot().getChildren().add(new TreeItem<>(selectedDers));
+                    ogrenciData.getInstance().addOgretmenler(selectedOgretmen,ogrenci_kullanici_adi);
+                    ogretmen.ogrenciler.add(ogrenci_kullanici_adi);
+                    ogretmenListView.getItems().add(selectedOgretmen);
                 });
-            });
-        });
-    }
-
-    @FXML
-    void ogretmenEkleButton(ActionEvent event) {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Yeni Öğretmen Ekle");
-        dialog.setHeaderText("Lütfen yeni öğretmenin adını girin:");
-        dialog.setContentText("Ad:");
-
-        dialog.showAndWait().ifPresent(ogretmen -> {
-            if (ogretmen.isEmpty()) {
-                showAlert("Hata", "Öğretmen adı boş olamaz.");
-                return;
             }
-            ogretmenListView.getItems().add(ogretmen);
         });
     }
+
+    // Öğretmen ismine göre öğretmeni bulan yardımcı metot
+    private Ogretmen findOgretmenByAdi(String ogretmenAdi) {
+        for (Ogretmen ogretmen : ogretmenData.getInstance().getOgretmenler()) {
+            if (ogretmen.getKullaniciAd().equals(ogretmenAdi)) {
+                return ogretmen;
+            }
+        }
+        return null;
+    }
+
+
 
     @FXML
     void exitButton(MouseEvent event) {
@@ -144,24 +142,6 @@ public class ogrenciAnaEkran {
         }
     }
 
-    // Mevcut bir TreeItem'ı bul veya yenisini oluştur
-    private TreeItem<String> findOrCreateTreeItem(TreeItem<String> parent, String value) {
-        for (TreeItem<String> child : parent.getChildren()) {
-            if (child.getValue().equals(value)) {
-                return child;
-            }
-        }
-        TreeItem<String> newItem = new TreeItem<>(value);
-        parent.getChildren().add(newItem);
-        return newItem;
-    }
 
-    // Hata mesajı gösteren metot
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
+
 }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.okp.ogrenciKayitOl">
+   <children>
+      <AnchorPane prefHeight="106.0" prefWidth="500.0" style="-fx-background-color: #CF9FFF;">
+         <children>
+            <ImageView fx:id="gerigel" fitHeight="33.0" fitWidth="32.0" layoutX="20.0" layoutY="20.0" onDragDetected="#ongerigel" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resimler/rewind.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="106.0" fitWidth="109.0" layoutX="78.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resimler/gOgrenci.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="203.0" layoutY="38.0" text="Öğrenci Kayıt OL" textFill="#9e17bc" underline="true">
+               <font>
+                  <Font name="Arial Black" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="106.0" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: #D8BFD8;">
+         <children>
+            <Label layoutX="110.0" layoutY="21.0" text="Kullanıcı Adı:" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="110.0" layoutY="74.0" text="Şifre:" textFill="#fffcfc">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textfield1" layoutX="232.0" layoutY="21.0" promptText="Bir kullanıcı adı oluşturun" style="-fx-background-color: #9e17bc;" />
+            <PasswordField fx:id="passwordfield1" layoutX="233.0" layoutY="75.0" promptText="bir şifre oluşturun" style="-fx-background-color: #9e17bc;" />
+            <Button fx:id="ogrenciKayitOlButton" layoutX="250.0" layoutY="116.0" mnemonicParsing="false" onAction="#ogrenciKayitOlButton" style="-fx-background-color: #9e17bc;" text="Kayıt Ol" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
