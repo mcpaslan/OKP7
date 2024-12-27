@@ -1,6 +1,6 @@
 package com.example.okp;
 
-public abstract class Kullanici implements Ikullanici {
+public class Kullanici implements Ikullanici {
     private String kullaniciAd;
     private String sifre;
 
@@ -18,5 +18,4 @@ public abstract class Kullanici implements Ikullanici {
     public String getKullaniciAd() {
         return kullaniciAd;
     }
-    public abstract void displayDetails();
 }

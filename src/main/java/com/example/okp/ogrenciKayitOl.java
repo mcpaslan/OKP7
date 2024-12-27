@@ -37,20 +37,27 @@ public class ogrenciKayitOl {
     @FXML
     void ongerigel(MouseEvent event) {
 
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("ogrenciGiris.fxml"));
-                Parent root = loader.load();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ogrenciGiris.fxml"));
+            Parent root = loader.load();
 
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.setTitle("Online Kurs Platformu");
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Online Kurs Platformu");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+    }
+    private boolean Alfabetikmi(String str) {
+        return str.chars().allMatch(ch -> Character.isLetter(ch) || Character.isWhitespace(ch));
+    }
+
+    private boolean Numerikmi(String str) {
+        return str.chars().allMatch(Character::isDigit);
+    }
 
 
 
@@ -61,20 +68,35 @@ public class ogrenciKayitOl {
         Ogrenci talebe = new Ogrenci(ogrenciKullaniciAdi, ogrenciSifre);
         ogrenciData.getInstance().addOgrenci(talebe);
 
-        if (textfield1.getText().isEmpty() && passwordfield1.getText().isEmpty()) {
+        if (textfield1.getText().isEmpty() || passwordfield1.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Kayıt");
             alert.setHeaderText("Kayıt Durumu");
             alert.setContentText("Lütfen tüm alanları doldurun!");
             alert.showAndWait();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Kayıt");
-            alert.setHeaderText("Kayıt Durumu");
-            alert.setContentText("Kayıt olundu!");
-            alert.showAndWait();
-            textfield1.setText("");
-            passwordfield1.setText("");
+        }
+
+        else {
+            if(Alfabetikmi(textfield1.getText()) && Numerikmi(passwordfield1.getText())){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Kayıt");
+                alert.setHeaderText("Kayıt Durumu");
+                alert.setContentText("Kayıt olundu!");
+                alert.showAndWait();
+                textfield1.setText("");
+                passwordfield1.setText("");
+
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Kayıt");
+                alert.setHeaderText("Kayıt Durumu");
+                alert.setContentText("Lütfen Kullanıcı adını Alfabetik, sifreyi de numerik olarak girin");
+                alert.showAndWait();
+
+            }
+
+
         }
 
     }

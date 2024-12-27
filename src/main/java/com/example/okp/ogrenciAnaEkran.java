@@ -15,12 +15,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+
 
 public class ogrenciAnaEkran {
     Ogrenci ogrenci_kullanici_adi = ogrenciData.getInstance().getOgrenciKullaniciAdi();
     String metin = "Hoşgeldiniz " + ogrenci_kullanici_adi.getKullaniciAd();
+
+
 
     @FXML
     private ImageView exit;

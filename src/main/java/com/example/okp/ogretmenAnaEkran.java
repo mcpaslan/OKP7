@@ -51,7 +51,7 @@ public class ogretmenAnaEkran {
         ogretmenDersTreeView.setRoot(rootCategory); // TreeView'e root ekleniyor
         ogretmenHosgeldinLabel.setText(metin);
         for(Ogrenci ogrenci:ogretmen_kullanici_adi.ogrenciler){
-        ogrenciListView.getItems().add(ogrenci.getKullaniciAd());}
+            ogrenciListView.getItems().add(ogrenci.getKullaniciAd());}
     }
 
     @FXML

@@ -37,22 +37,47 @@ public class ogretmenKayitOl {
         Ogretmen ogretmen1 = new Ogretmen(ogretmenKullaniciAdi, ogretmenSifre);
         ogretmenData.getInstance().addOgretmen(ogretmen1);
 
-        if (textfield.getText().isEmpty() && passwordfield.getText().isEmpty()) {
+        if (textfield.getText().isEmpty() || passwordfield.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Kayıt");
             alert.setHeaderText("Kayıt Durumu");
             alert.setContentText("Lütfen tüm alanları doldurun!");
             alert.showAndWait();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Kayıt");
-            alert.setHeaderText("Kayıt Durumu");
-            alert.setContentText("Kayıt olundu!");
-            alert.showAndWait();
-            textfield.setText("");
-            passwordfield.setText("");
+
+        }
+
+        else {
+            if(Alfabetikmi(textfield.getText()) && Numerikmi(passwordfield.getText())){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Kayıt");
+                alert.setHeaderText("Kayıt Durumu");
+                alert.setContentText("Kayıt olundu!");
+                alert.showAndWait();
+                textfield.setText("");
+                passwordfield.setText("");
+
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Kayıt");
+                alert.setHeaderText("Kayıt Durumu");
+                alert.setContentText("Lütfen Kullanıcı adını Alfabetik, sifreyi de numerik olarak girin");
+                alert.showAndWait();
+            }
+
         }
     }
+
+    private boolean Alfabetikmi(String str) {
+        return str.chars().allMatch(ch -> Character.isLetter(ch) || Character.isWhitespace(ch));
+    }
+
+    private boolean Numerikmi(String str) {
+        return str.chars().allMatch(Character::isDigit);
+    }
+
+
+
     @FXML
     void initialize(){
         gerigel1.setOnMouseClicked(event -> ongerigel1(event));
@@ -74,6 +99,6 @@ public class ogretmenKayitOl {
         }
 
     }
-    }
+}
 
 
