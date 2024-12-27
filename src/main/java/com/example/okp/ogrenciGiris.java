@@ -16,7 +16,6 @@ import java.io.IOException;
 
 
 public class ogrenciGiris {
-
     @FXML
     private ImageView geriGel;
 
@@ -34,6 +33,7 @@ public class ogrenciGiris {
 
     @FXML
     private ImageView exit;
+
 
     @FXML
     void exitButton(MouseEvent event) {
@@ -71,6 +71,8 @@ public class ogrenciGiris {
 
             if (ogrenci.getKullaniciAd().equals(ogrenciKullaniciAdi) && ogrenci.getSifre().equals(ogrenciSifre)){
                 giris = true;
+                Kullanici yeni_ogrenci=new Ogrenci(ogrenciKullaniciAdi,ogrenciSifre);
+                yeni_ogrenci.displayDetails();
                 ogrenciData.getInstance().setOgrenciKullaniciAdi(ogrenci);
                 break;
             }

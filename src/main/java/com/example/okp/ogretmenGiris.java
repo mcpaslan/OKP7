@@ -78,6 +78,8 @@ public class ogretmenGiris {
 
             if (ogretmen.getKullaniciAd().equals(ogretmenKullaniciAdi) && ogretmen.getSifre().equals(ogretmenSifre)){
                 giris = true;
+                Kullanici yeni_ogretmen=new Ogretmen(ogretmenKullaniciAdi,ogretmenSifre);
+                yeni_ogretmen.displayDetails();
                 ogretmenData.getInstance().setOgretmenKullaniciAdi(ogretmen);
                 break;
             }

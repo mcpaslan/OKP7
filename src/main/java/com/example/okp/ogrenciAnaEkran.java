@@ -21,8 +21,6 @@ public class ogrenciAnaEkran {
     Ogrenci ogrenci_kullanici_adi = ogrenciData.getInstance().getOgrenciKullaniciAdi();
     String metin = "Hoşgeldiniz " + ogrenci_kullanici_adi.getKullaniciAd();
 
-
-
     @FXML
     private ImageView exit;
 

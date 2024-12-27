@@ -30,6 +30,15 @@ public class ogretmenKayitOl {
     @FXML
     private TextField textfield;
 
+    private boolean Alfabetikmi(String str) {
+        return str.chars().allMatch(ch -> Character.isLetter(ch) || Character.isWhitespace(ch));
+    }
+
+    private boolean Numerikmi(String str) {
+        return str.chars().allMatch(Character::isDigit);
+    }
+
+
     @FXML
     void ogretmenKayitOlButton(ActionEvent event) {
         String ogretmenKullaniciAdi = textfield.getText();
@@ -67,17 +76,6 @@ public class ogretmenKayitOl {
 
         }
     }
-
-    private boolean Alfabetikmi(String str) {
-        return str.chars().allMatch(ch -> Character.isLetter(ch) || Character.isWhitespace(ch));
-    }
-
-    private boolean Numerikmi(String str) {
-        return str.chars().allMatch(Character::isDigit);
-    }
-
-
-
     @FXML
     void initialize(){
         gerigel1.setOnMouseClicked(event -> ongerigel1(event));
@@ -99,6 +97,6 @@ public class ogretmenKayitOl {
         }
 
     }
-}
+    }
 
 

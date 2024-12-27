@@ -17,17 +17,25 @@ public class ogretmenData {
     private ArrayList<Ogretmen> ogretmenler = new ArrayList<>();
 
     public ogretmenData(){
-        ogretmenler.add(new Ogretmen("damla","123"));
-        ogretmenler.add(new Ogretmen("seyda","456"));
-        ogretmenler.add(new Ogretmen("merve","789"));
+        Ogretmen damla = new Ogretmen("damla", "123");
+        damla.getDersler().add("Veri Yapıları");
 
+        Ogretmen seyda = new Ogretmen("seyda", "456");
+        seyda.getDersler().add("Veri tabanı");
+
+        Ogretmen merve = new Ogretmen("merve", "789");
+        merve.getDersler().add("Java ile kodlama");
+
+        ogretmenler.add(damla);
+        ogretmenler.add(seyda);
+        ogretmenler.add(merve);
     }
 
     public ArrayList<Ogretmen> getOgretmenler() {
         return ogretmenler;
     }
 
-    public void addDersler(String ders,Ogretmen ogretmen) {
+        public void addDersler(String ders,Ogretmen ogretmen) {
         ogretmen.dersler.add(ders);
     }
 

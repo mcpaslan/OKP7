@@ -11,6 +11,10 @@ public class Ogrenci extends Kullanici {
 
     public ArrayList<String> getOgretmenler() {
         return ogretmenler;
-
+    }
+    @Override
+    public void displayDetails() {
+        System.out.println("Ogrenci Ad: " + getKullaniciAd());
+        System.out.println("Sifre: "  + getSifre());
     }
 }
