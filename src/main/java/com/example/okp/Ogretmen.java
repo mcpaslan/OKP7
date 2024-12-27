@@ -10,8 +10,12 @@ public class Ogretmen extends Kullanici{
     }
     ArrayList<String>dersler=new ArrayList<>();
     ArrayList<Ogrenci>ogrenciler=new ArrayList<>();
-
     public ArrayList<String> getDersler() {
         return dersler;
+    }
+    @Override
+    public void displayDetails() {
+        System.out.println("Ogretmen Ad: " + getKullaniciAd());
+        System.out.println("Sifre: " + getSifre());
     }
 }
