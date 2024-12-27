@@ -21,8 +21,8 @@ public class ogrenciAnaEkran {
     Ogrenci ogrenci_kullanici_adi = ogrenciData.getInstance().getOgrenciKullaniciAdi();
     String metin = "Hoşgeldiniz " + ogrenci_kullanici_adi.getKullaniciAd();
 
-    @FXML
-    private ImageView exit;
+    private exit exitButtonController = new exit();
+
 
     @FXML
     private TreeView<String> ogrenciDersTreeView;
@@ -52,6 +52,16 @@ public class ogrenciAnaEkran {
         rootCategory.setExpanded(true); // Başlangıçta genişlemiş olsun
         ogrenciDersTreeView.setRoot(rootCategory); // TreeView'e root ekleniyor
         ogrenciHosgeldinLabel.setText(metin);
+        ArrayList<String> dersler = ogrenci_kullanici_adi.getDersler();
+        for (String ders : dersler) {
+            TreeItem<String> dersItem = new TreeItem<>(ders);
+            rootCategory.getChildren().add(dersItem); // TreeItem olarak ekliyoruz
+        }
+        // Öğretmenler listesini ogretmenler listesine ekliyoruz
+        ArrayList<String> ogretmenler = ogrenci_kullanici_adi.getOgretmenler();
+        for (String ogretmen : ogretmenler) {
+            ogretmenListView.getItems().add(ogretmen);
+        }
     }
 
 
@@ -89,11 +99,16 @@ public class ogrenciAnaEkran {
                 dersSecDialog.showAndWait().ifPresent(selectedDers -> {
                     ogrenciDersTreeView.getRoot().getChildren().add(new TreeItem<>(selectedDers));
                     ogrenciData.getInstance().addOgretmenler(selectedOgretmen,ogrenci_kullanici_adi);
+                    ogrenciData.getInstance().addDers(ogrenci_kullanici_adi,selectedDers);
                     ogretmen.ogrenciler.add(ogrenci_kullanici_adi);
                     ogretmenListView.getItems().add(selectedOgretmen);
                 });
             }
         });
+    }
+    @FXML
+    void exitButton(MouseEvent event) {
+        exitButtonController.exitButton(null); // MouseEvent'i burada kullanmak gereksiz, null gönderebilirsiniz.
     }
 
     // Öğretmen ismine göre öğretmeni bulan yardımcı metot
@@ -108,16 +123,7 @@ public class ogrenciAnaEkran {
 
 
 
-    @FXML
-    void exitButton(MouseEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Çıkış Yap");
-        alert.setHeaderText(null);
-        alert.setContentText("Uygulamadan çıkmak istediğinizden emin misiniz?");
-        if (alert.showAndWait().get() == ButtonType.OK) {
-            Platform.exit();
-        }
-    }
+
 
     @FXML
     void ogrenciCikisYapButton(ActionEvent event) {

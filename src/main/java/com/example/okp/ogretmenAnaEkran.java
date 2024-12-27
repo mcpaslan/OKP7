@@ -14,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class ogretmenAnaEkran {
@@ -27,8 +28,7 @@ public class ogretmenAnaEkran {
     @FXML
     private Button ogretmenCikisYapButton;
 
-    @FXML
-    private ImageView exit;
+    private exit exitButtonController = new exit();
 
 
     @FXML
@@ -51,19 +51,19 @@ public class ogretmenAnaEkran {
         ogretmenDersTreeView.setRoot(rootCategory); // TreeView'e root ekleniyor
         ogretmenHosgeldinLabel.setText(metin);
         for(Ogrenci ogrenci:ogretmen_kullanici_adi.ogrenciler){
-        ogrenciListView.getItems().add(ogrenci.getKullaniciAd());}
-    }
-
-    @FXML
-    void exitButton(MouseEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Çıkış Yap");
-        alert.setHeaderText(null);
-        alert.setContentText("Uygulamadan çıkmak istediğinizden emin misiniz?");
-        if (alert.showAndWait().get() == ButtonType.OK) {
-            Platform.exit();
+            ogrenciListView.getItems().add(ogrenci.getKullaniciAd());}
+        ArrayList<String> dersler = ogretmen_kullanici_adi.getDersler();
+        for (String ders : dersler) {
+            TreeItem<String> dersItem = new TreeItem<>(ders);
+            rootCategory.getChildren().add(dersItem); // TreeItem olarak ekliyoruz
         }
     }
+    @FXML
+    void exitButton(MouseEvent event) {
+        exitButtonController.exitButton(null); // MouseEvent'i burada kullanmak gereksiz, null gönderebilirsiniz.
+    }
+
+
     // Hata mesajı veya bilgi mesajı göstermek için showAlert metodunu tanımlama
     public void showAlert(String title, String message) {
         Alert alert = new Alert(AlertType.INFORMATION);

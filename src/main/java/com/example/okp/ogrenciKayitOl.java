@@ -77,7 +77,9 @@ public class ogrenciKayitOl {
         }
 
         else {
-            if(Alfabetikmi(textfield1.getText()) && Numerikmi(passwordfield1.getText())){
+            try{
+                hataKontrol kontrol=new hataKontrol();
+                kontrol.kontrol(textfield1.getText(), passwordfield1.getText());
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Kayıt");
                 alert.setHeaderText("Kayıt Durumu");
@@ -85,16 +87,16 @@ public class ogrenciKayitOl {
                 alert.showAndWait();
                 textfield1.setText("");
                 passwordfield1.setText("");
-
             }
-            else{
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+            catch (AlfabetikException | NumerikException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Kayıt");
-                alert.setHeaderText("Kayıt Durumu");
-                alert.setContentText("Lütfen Kullanıcı adını Alfabetik, sifreyi de numerik olarak girin");
+                alert.setHeaderText("Hata");
+                alert.setContentText(e.getMessage());
                 alert.showAndWait();
-
             }
+
 
 
         }

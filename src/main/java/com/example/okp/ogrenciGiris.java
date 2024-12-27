@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class ogrenciGiris {
@@ -31,20 +32,13 @@ public class ogrenciGiris {
     @FXML
     private Button ogrenciKayitOlButton;
 
-    @FXML
-    private ImageView exit;
-
+    private exit exitButtonController = new exit();
 
     @FXML
     void exitButton(MouseEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Çıkış Yap");
-        alert.setHeaderText(null);
-        alert.setContentText("Uygulamadan çıkmak istediğinizden emin misiniz?");
-        if (alert.showAndWait().get() == ButtonType.OK) {
-            Platform.exit();
-        }
+        exitButtonController.exitButton(null); // MouseEvent'i burada kullanmak gereksiz, null gönderebilirsiniz.
     }
+
     @FXML
     void ogrenciKayitOlButton(ActionEvent event) {
         try {
@@ -73,6 +67,8 @@ public class ogrenciGiris {
                 giris = true;
                 Kullanici yeni_ogrenci=new Ogrenci(ogrenciKullaniciAdi,ogrenciSifre);
                 yeni_ogrenci.displayDetails();
+                ArrayList<Ogrenci> ogrenciler = ogrenciData.getInstance().getOgrenciler();
+                ((Ogrenci) yeni_ogrenci).displayDetails(ogrenciler);
                 ogrenciData.getInstance().setOgrenciKullaniciAdi(ogrenci);
                 break;
             }

@@ -35,7 +35,7 @@ public class ogretmenData {
         return ogretmenler;
     }
 
-        public void addDersler(String ders,Ogretmen ogretmen) {
+    public void addDersler(String ders,Ogretmen ogretmen) {
         ogretmen.dersler.add(ders);
     }
 

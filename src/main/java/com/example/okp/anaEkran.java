@@ -16,20 +16,14 @@ import java.io.IOException;
 
 public class anaEkran {
 
-    @FXML
-    private ImageView exit;
 
+
+    private exit exitButtonController = new exit();
     @FXML
     void exitButton(MouseEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Çıkış Yap");
-        alert.setHeaderText(null);
-        alert.setContentText("Uygulamadan çıkmak istediğinizden emin misiniz?");
-        if (alert.showAndWait().get() == ButtonType.OK) {
-            Platform.exit();
-        }
-
+        exitButtonController.exitButton(null); // MouseEvent'i burada kullanmak gereksiz, null gönderebilirsiniz.
     }
+
 
     @FXML
     private Button ogrenciButton;

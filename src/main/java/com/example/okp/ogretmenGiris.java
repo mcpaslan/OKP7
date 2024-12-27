@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class ogretmenGiris {
@@ -21,23 +22,12 @@ public class ogretmenGiris {
     private ImageView gerigel5;
 
 
-    @FXML
-    private ImageView exit;
+    private exit exitButtonController = new exit();
+
     @FXML
     private Button ogretmenKayitOlButton1;
 
 
-    @FXML
-    void exitButton(MouseEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Çıkış Yap");
-        alert.setHeaderText(null);
-        alert.setContentText("Uygulamadan çıkmak istediğinizden emin misiniz?");
-        if (alert.showAndWait().get() == ButtonType.OK) {
-            Platform.exit();
-        }
-
-    }
 
     @FXML
     private TextField kullaniciAdTF;
@@ -64,6 +54,10 @@ public class ogretmenGiris {
         }
     }
     @FXML
+    void exitButton(MouseEvent event) {
+        exitButtonController.exitButton(null); // MouseEvent'i burada kullanmak gereksiz, null gönderebilirsiniz.
+    }
+    @FXML
     void initialize(){
         gerigel5.setOnMouseClicked(event -> ongerigel5(event));
     }
@@ -80,6 +74,8 @@ public class ogretmenGiris {
                 giris = true;
                 Kullanici yeni_ogretmen=new Ogretmen(ogretmenKullaniciAdi,ogretmenSifre);
                 yeni_ogretmen.displayDetails();
+                ArrayList<Ogretmen> ogretmenler = ogretmenData.getInstance().getOgretmenler();
+                ((Ogretmen) yeni_ogretmen).displayDetails(ogretmenler);
                 ogretmenData.getInstance().setOgretmenKullaniciAdi(ogretmen);
                 break;
             }

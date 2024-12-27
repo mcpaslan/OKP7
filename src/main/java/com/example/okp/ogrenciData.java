@@ -14,15 +14,19 @@ public class ogrenciData {
         return instance;
     }
 
-
     private ArrayList<Ogrenci> ogrenciler = new ArrayList<>();
 
-
     public ogrenciData() {
-        ogrenciler.add(new Ogrenci("mucip", "123"));
-        ogrenciler.add(new Ogrenci("mert", "456"));
-        ogrenciler.add(new Ogrenci("muhammed", "789"));
+        // Sample students with courses
+        Ogrenci ogrenci1 = new Ogrenci("mucip", "123");
 
+        Ogrenci ogrenci2 = new Ogrenci("mert", "456");
+
+        Ogrenci ogrenci3 = new Ogrenci("muhammed", "789");
+
+        ogrenciler.add(ogrenci1);
+        ogrenciler.add(ogrenci2);
+        ogrenciler.add(ogrenci3);
     }
 
     public void addOgrenci(Ogrenci ogrenci) {
@@ -33,7 +37,7 @@ public class ogrenciData {
         return ogrenciler;
     }
 
-    public void addOgretmenler(String ogretmen_adi,Ogrenci ogrenci) {
+    public void addOgretmenler(String ogretmen_adi, Ogrenci ogrenci) {
         ogrenci.ogretmenler.add(ogretmen_adi);
     }
 
@@ -41,8 +45,21 @@ public class ogrenciData {
         this.aktifOgrenci = aktifOgrenci;
     }
 
-
     public Ogrenci getOgrenciKullaniciAdi() {
         return aktifOgrenci;
     }
+
+    // Add a course to a student's list of courses
+    public void addDers(Ogrenci ogrenci, String ders) {
+        ogrenci.getDersler().add(ders);
+    }
+
+
+
+    // Get all courses for a specific student
+    public ArrayList<String> getDersler(Ogrenci ogrenci) {
+        return ogrenci.getDersler();
+    }
+
+
 }

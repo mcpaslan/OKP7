@@ -30,13 +30,6 @@ public class ogretmenKayitOl {
     @FXML
     private TextField textfield;
 
-    private boolean Alfabetikmi(String str) {
-        return str.chars().allMatch(ch -> Character.isLetter(ch) || Character.isWhitespace(ch));
-    }
-
-    private boolean Numerikmi(String str) {
-        return str.chars().allMatch(Character::isDigit);
-    }
 
 
     @FXML
@@ -56,7 +49,9 @@ public class ogretmenKayitOl {
         }
 
         else {
-            if(Alfabetikmi(textfield.getText()) && Numerikmi(passwordfield.getText())){
+            try{
+                hataKontrol kontrol=new hataKontrol();
+                kontrol.kontrol(textfield.getText(), passwordfield.getText());
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Kayıt");
                 alert.setHeaderText("Kayıt Durumu");
@@ -64,13 +59,13 @@ public class ogretmenKayitOl {
                 alert.showAndWait();
                 textfield.setText("");
                 passwordfield.setText("");
-
             }
-            else{
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+            catch (AlfabetikException | NumerikException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Kayıt");
-                alert.setHeaderText("Kayıt Durumu");
-                alert.setContentText("Lütfen Kullanıcı adını Alfabetik, sifreyi de numerik olarak girin");
+                alert.setHeaderText("Hata");
+                alert.setContentText(e.getMessage());
                 alert.showAndWait();
             }
 
@@ -97,6 +92,6 @@ public class ogretmenKayitOl {
         }
 
     }
-    }
+}
 
 
