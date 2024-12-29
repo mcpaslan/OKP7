@@ -51,13 +51,6 @@ public class ogrenciKayitOl {
         }
 
     }
-    private boolean Alfabetikmi(String str) {
-        return str.chars().allMatch(ch -> Character.isLetter(ch) || Character.isWhitespace(ch));
-    }
-
-    private boolean Numerikmi(String str) {
-        return str.chars().allMatch(Character::isDigit);
-    }
 
 
 
