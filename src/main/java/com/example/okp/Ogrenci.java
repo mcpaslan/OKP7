@@ -8,7 +8,6 @@ public class Ogrenci extends Kullanici {
     }
 
     ArrayList<String> ogretmenler = new ArrayList<>();
-    ArrayList<Ogrenci> ogrenciler = new ArrayList<>();
     ArrayList<String> dersler = new ArrayList<>();
     public ArrayList<String> getOgretmenler() {
         return ogretmenler;

@@ -1,7 +1,5 @@
 package com.example.okp;
 
-
-
 import java.util.ArrayList;
 
 public class ogretmenData {

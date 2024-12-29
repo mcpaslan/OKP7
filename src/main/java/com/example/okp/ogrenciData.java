@@ -56,10 +56,7 @@ public class ogrenciData {
 
 
 
-    // Get all courses for a specific student
-    public ArrayList<String> getDersler(Ogrenci ogrenci) {
-        return ogrenci.getDersler();
-    }
+
 
 
 }
